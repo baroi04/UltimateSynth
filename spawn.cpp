@@ -1,109 +1,80 @@
-// 
-// Example of communication with a subprocess via stdin/stdout
-// Author: Konstantin Tretyakov
-// License: MIT
-//
+#include <spawn.h>
+#include <QDebug>
+#include <QString>
+#include <QStringList>
 
-#include <ext/stdio_filebuf.h> // NB: Specific to libstdc++
-#include <sys/wait.h>
-#include <unistd.h>
-#include <iostream>
-#include <memory>
-#include <exception>
+Spawn::Spawn(QObject *parent) : QObject(parent)
+{
+    m_programPath = "";
+    m_argument = QStringList();
+    m_workDir = "";
 
-// Wrapping pipe in a class makes sure they are closed when we leave scope
-class cpipe {
-private:
-    int fd[2];
-public:
-    const inline int read_fd() const { return fd[0]; }
-    const inline int write_fd() const { return fd[1]; }
-    cpipe() { if (pipe(fd)) throw std::runtime_error("Failed to create pipe"); }
-    void close() { ::close(fd[0]); ::close(fd[1]); }
-    ~cpipe() { close(); }
-};
-
-
-//
-// Usage:
-//   spawn s(argv)
-//   s.stdin << ...
-//   s.stdout >> ...
-//   s.send_eol()
-//   s.wait()
-//
-class spawn {
-private:
-    cpipe write_pipe;
-    cpipe read_pipe;
-public:
-    int child_pid = -1;
-    std::unique_ptr<__gnu_cxx::stdio_filebuf<char> > write_buf = NULL; 
-    std::unique_ptr<__gnu_cxx::stdio_filebuf<char> > read_buf = NULL;
-    std::ostream stdin;
-    std::istream stdout;
-    
-    spawn(const char* const argv[], bool with_path = false, const char* const envp[] = 0): stdin(NULL), stdout(NULL) {
-        child_pid = fork();
-        if (child_pid == -1) throw std::runtime_error("Failed to start child process"); 
-        if (child_pid == 0) {   // In child process
-            dup2(write_pipe.read_fd(), STDIN_FILENO);
-            dup2(read_pipe.write_fd(), STDOUT_FILENO);
-            write_pipe.close(); read_pipe.close();
-            int result;
-            if (with_path) {
-                if (envp != 0) result = execvpe(argv[0], const_cast<char* const*>(argv), const_cast<char* const*>(envp));
-                else result = execvp(argv[0], const_cast<char* const*>(argv));
-            }
-            else {
-                if (envp != 0) result = execve(argv[0], const_cast<char* const*>(argv), const_cast<char* const*>(envp));
-                else result = execv(argv[0], const_cast<char* const*>(argv));
-            }
-            if (result == -1) {
-               // Note: no point writing to stdout here, it has been redirected
-               std::cerr << "Error: Failed to launch program" << std::endl;
-               exit(1);
-            }
-        }
-        else {
-            close(write_pipe.read_fd());
-            close(read_pipe.write_fd());
-            write_buf = std::unique_ptr<__gnu_cxx::stdio_filebuf<char> >(new __gnu_cxx::stdio_filebuf<char>(write_pipe.write_fd(), std::ios::out));
-            read_buf = std::unique_ptr<__gnu_cxx::stdio_filebuf<char> >(new __gnu_cxx::stdio_filebuf<char>(read_pipe.read_fd(), std::ios::in));
-            stdin.rdbuf(write_buf.get());
-            stdout.rdbuf(read_buf.get());
-        }
-    }
-    
-    void send_eof() { write_buf->close(); }
-    
-    int wait() {
-        int status;
-        waitpid(child_pid, &status, 0);
-        return status;
-    }
-};
-
-
-
-
-// ---------------- Usage example -------------------- //
-#include <string>
-using std::string;
-using std::getline;
-using std::cout;
-using std::endl;
-
-int main() {
-    const char* const argv[] = {"/bin/cat", (const char*)0};
-    spawn cat(argv);
-    cat.stdin << "Hello" << std::endl;
-    string s;
-    getline(cat.stdout, s);
-    cout << "Read from program: '" << s << "'" << endl;
-    cat.send_eof();
-    cout << "Waiting to terminate..." << endl;
-    cout << "Status: " << cat.wait() << endl;
-    return 0;
 }
 
+void Spawn::init(QString program, QStringList argument, QString workdir)
+{
+    m_programPath = program;
+    m_argument = argument;
+    m_workDir = workdir;
+    m_process.setWorkingDirectory(m_workDir);
+
+    connect(&m_process, SIGNAL(started()), this, SLOT(processtHandler()) );
+    connect(&m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(stdOutHandler()) );
+
+}
+
+void Spawn::start()
+{
+    if(m_programPath != ""){
+       m_process.start(m_programPath, m_argument);
+        //m_process.startDetached(m_programPath, m_argument);
+    }else
+    {
+        qDebug() << "ERROR: Spawn::start. Object not initialised. Call Spawn::init first";
+    }
+
+
+}
+
+void Spawn::processtHandler()
+{
+     qDebug() << "Process state changed";
+}
+
+void Spawn::writeToStdin(QString string)
+{
+    m_process.write((string + "\n").toLocal8Bit());
+}
+
+
+void Spawn::stdOutHandler()
+{
+    QStringList strLines = QString(m_process.readAllStandardOutput()).split("\n");
+    for (int i = 0; i < strLines.size(); i++){
+        qDebug() << strLines.at(i);
+    }
+
+}
+
+//QString program = "/home/pi/ombl/ombl";
+//QStringList arguments;
+//QString result;
+//QProcess myProcess;
+//myProcess.setWorkingDirectory("/home/pi/ombl/");
+//myProcess.start(program);
+
+//myProcess.waitForStarted();
+//qDebug() << myProcess.state();
+
+////myProcess.write("Hello\n");
+
+//myProcess.waitForReadyRead();
+
+//QStringList strLines = QString(myProcess.readAllStandardOutput()).split("\n");
+//for (int i = 0; i < strLines.size(); i++){
+//    qDebug() << strLines.at(i);
+//}
+
+
+//myProcess.write("Main A\n");
+//myProcess.waitForReadyRead();

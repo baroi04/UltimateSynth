@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>DefaultFileDialog.qml</file>
+        <file>VoicesExplorer.qml</file>
+        <file>last-track-left-arrow.svg</file>
+        <file>skip-track.svg</file>
     </qresource>
 </RCC>

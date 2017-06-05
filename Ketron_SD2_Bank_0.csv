@@ -1,0 +1,128 @@
+1,Grand Piano,Piano
+2,Rock Piano,Piano
+3,Upright,Piano
+4,Honky,Piano
+5,Rodes,E. Piano
+6,DxPiano,E. Piano
+7,Harpsichrd,Piano
+8,Clavinet,E. Piano
+9,Celesta,Perc. & Drum Kit
+10,Glocken,Perc. & Drum Kit
+11,MusicBox,Perc. & Drum Kit
+12,Vibraphon,Perc. & Drum Kit
+13,Marimba,Perc. & Drum Kit
+14,Xylophon,Perc. & Drum Kit
+15,Bell,Perc. & Drum Kit
+16,Santur,Perc. & Drum Kit
+17,Leslies,Organ
+18,JazzOrg1,Organ
+19,Rock B3,Organ
+20,Church,Organ
+21,Theatre,Organ
+22,Musette,Accordion & Harmonica
+23,Harmonica,Accordion & Harmonica
+24,Accordion,Accordion & Harmonica
+25,Classic,Guitar & Bass
+26,Country,Guitar & Bass
+27,Jazz,Guitar & Bass
+28,Clean,Guitar & Bass
+29,Muted1,Guitar & Bass
+30,Overdrive,Guitar & Bass
+31,Blues,Guitar & Bass
+32,Harmonics,Guitar & Bass
+33,Jazzbass,Guitar & Bass
+34,Finger,Guitar & Bass
+35,Picked,Guitar & Bass
+36,Fretless,Guitar & Bass
+37,Slap,Guitar & Bass
+38,Funk,Guitar & Bass
+39,Synbas1,Guitar & Bass
+40,Synbas2,Guitar & Bass
+41,Violin1,Strings
+42,Viola,Strings
+43,Cello,Strings
+44,Contrabass,Strings
+45,Tremolos,Strings
+46,Pizzicato,Strings
+47,Harp,Strings
+48,Timpani,Strings
+49,Strings1,Strings
+50,SlowStrings,Strings
+51,Synstrgs1,Strings
+52,Synstrgs2,Strings
+53,Choir1,Choir & Pad
+54,Choir2,Choir & Pad
+55,Synvoice,Choir & Pad
+56,Hits,Choir & Pad
+57,Trumpet1,Trumpet
+58,Trombone1,Trumpet
+59,Tuba,Trumpet
+60,Miles,Trumpet
+61,Fr.Horn,Brass
+62,Brass1,Brass
+63,Synbras1,Brass
+64,Synbras2,Brass
+65,Altosoft,Brass
+67,Contralto,Brass
+68,Rock Tenor,Brass
+68,Bariton,Trumpet
+69,Oboe,Flute & Woodwind
+70,Englishorn,Flute & Woodwind
+71,Basson,Flute & Woodwind
+72,Clarinet,Flute & Woodwind
+73,Piccolo,Flute & Woodwind
+74,Flute,Flute & Woodwind
+75,Recorder,Flute & Woodwind
+76,Andes,Flute & Woodwind
+77,Bottle,Flute & Woodwind
+78,Shakuhashi,Flute & Woodwind
+79,Whistle,Flute & Woodwind
+80,Ocarina,Flute & Woodwind
+81,Squares,Synth & FX
+82,Saw,Synth & FX
+83,Calliope,Synth & FX
+84,Wha,Synth & FX
+85,Plate,Synth & FX
+86,Vox,Synth & FX
+87,Saw 5th,Synth & FX
+88,Fm Lead,Synth & FX
+89,Fantasy,Synth & FX
+90,Warmpad,Synth & FX
+91,Score,Synth & FX
+92,Space,Synth & FX
+93,Softpad,Synth & FX
+94,Metal,Synth & FX
+95,Halo,Synth & FX
+96,Sweep,Synth & FX
+97,Ice Rain,Synth & FX
+98,Soundtrack,Synth & FX
+99,Crystal,Synth & FX
+100,Atmosphere,Synth & FX
+101,Brightness,Synth & FX
+102,Goblin,Synth & FX
+103,Echodrops,Synth & FX
+104,Startheme,Synth & FX
+105,Sitar,Strings
+106,Banjo,Strings
+107,Shamisen,Strings
+108,Koto,Strings
+109,Kalimba,Strings
+110,Bagpipe,Flute & Woodwind
+111,Fiddle,Strings
+112,Zurna,Flute & Woodwind
+113,Tinkle,Perc. & Drum Kit
+114,Agogo,Perc. & Drum Kit
+115,Steeldrum,Perc. & Drum Kit
+116,Woodblock,Perc. & Drum Kit
+117,Taiko,Perc. & Drum Kit
+118,Melotom,Organ
+119,Syntom,Organ
+120,Reverse,Synth & FX
+121,Fretslide,Synth & FX
+122,Breath,Synth & FX
+123,Seashore,Synth & FX
+124,Bird,Synth & FX
+125,Telephone,Synth & FX
+126,Helicopter,Synth & FX
+127,Applause,Synth & FX
+128,Gun shot,Synth & FX
